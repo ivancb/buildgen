@@ -1,0 +1,11 @@
+# Compiled files
+*.exe
+*.exe.config
+*.pdb
+*.vshost.*
+*.cache
+*.g.*
+TemporaryGenerated*
+
+# Output files
+*.bmp

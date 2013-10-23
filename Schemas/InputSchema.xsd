@@ -1,0 +1,62 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="InputSchema" elementFormDefault="qualified" targetNamespace="InputSchema">
+
+	<xsd:element name="building" type="buildingType"/>
+
+	<xsd:complexType name="buildingType">
+		<xsd:all>
+			<xsd:element name="floorplans">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded" >
+						<xsd:element name="floor" type="floorPlanType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:all>
+		<xsd:attribute name="floorcount" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="floorwidth" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="floorheight" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="gridresolution" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="constraints" type="xsd:string" use="optional"/>
+		<xsd:attribute name="seed" type="xsd:integer" use="optional"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="floorPlanType">
+		<xsd:sequence>
+			<xsd:group ref="floorPlanBoundsSeq" minOccurs="1" maxOccurs="1"/>
+			<xsd:group ref="floorPlanEntrancesSeq" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:group name="floorPlanBoundsSeq">
+		<xsd:sequence>
+			<xsd:element name="subbounds" type="floorBoundsType" />
+		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:group name="floorPlanEntrancesSeq">
+		<xsd:sequence>
+			<xsd:element name="entrance">
+				<xsd:complexType>
+					<xsd:attribute name="x" type="xsd:decimal" use="required"/>
+					<xsd:attribute name="y" type="xsd:decimal" use="required"/>
+					<xsd:attribute name="type" type="xsd:string" use="required"/>
+					<xsd:attribute name="direction" type="xsd:string" use="required"/>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:complexType name="floorBoundsType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="rect" type="rectType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="rectType">
+		<xsd:attribute name="x" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="y" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="xx" type="xsd:decimal" use="required"/>
+		<xsd:attribute name="yy" type="xsd:decimal" use="required"/>
+	</xsd:complexType>
+
+</xsd:schema>

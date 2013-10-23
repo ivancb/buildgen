@@ -1,0 +1,52 @@
+﻿<Window x:Class="Editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Editor" Height="640" Width="800" MinWidth="640" MinHeight="480">
+    <!-- Keybinds -->
+    <Window.CommandBindings>
+        <CommandBinding Command="Save" Executed="SaveShortcut_CommandHandler" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="Save"/>
+    </Window.InputBindings>
+    <!-- Layout -->
+    <Grid Background="#FFECEAE1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Header="New">
+                    <MenuItem Header="Building Definition..." Name="fileNewBuildingDefinitionItem" Click="fileNewBuildingDefinitionItem_Click" />
+                    <MenuItem Header="Constraint Set..." Name="fileNewConstraintSetItem" Click="fileNewConstraintSetItem_Click"/>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Close" IsEnabled="False" Name="fileCloseItem" Click="fileCloseItem_Click" />
+                <Separator />
+                <MenuItem Header="Save" IsEnabled="False" Name="fileSaveItem" Click="fileSaveItem_Click" InputGestureText="Ctrl + S" />
+                <MenuItem Header="Save As..." IsEnabled="False" Name="fileSaveAsItem" Click="fileSaveAsItem_Click" />
+                <Separator />
+                <MenuItem Header="Exit" Name="fileExit" Click="fileExit_Click" InputGestureText="Alt + F4" />
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Generate from Current File" Name="toolsGenerateItem" IsEnabled="False" Click="toolsGenerateItem_Click" />
+                <MenuItem Header="Generate from Current File..." Name="toolsGenerateWithParamsItem" IsEnabled="False" Click="toolsGenerateWithParamsItem_Click" />
+                <MenuItem Header="Launch Viewer" Name="toolsLaunchViewerItem" Click="toolsLaunchViewerItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Change Working Directory..." Name="fileSetWorkDirectory" Click="settingsSetWorkDirectory_Click" />
+            </MenuItem>
+        </Menu>
+        <TreeView Margin="5" Name="documentTreeView" Grid.Row="1" Grid.Column="0" ClipToBounds="False" MouseDoubleClick="documentTreeView_MouseDoubleClick">
+            <TreeViewItem Header="No working directory specified" />
+        </TreeView>
+        <TabControl Margin="5"  Name="documentTabControl" Grid.Column="1" Grid.Row="1" Visibility="Hidden" SelectionChanged="documentTabControl_SelectionChanged">
+            
+        </TabControl>
+    </Grid>
+</Window>

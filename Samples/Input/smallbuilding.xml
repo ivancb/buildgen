@@ -1,0 +1,74 @@
+<?xml version='1.0'?>
+<building xmlns="InputSchema" floorcount="1" floorwidth="10" floorheight="10" gridresolution="0.2">
+<floorplans>
+<floor>
+<subbounds>
+<rect x="0" y="0" xx="1" yy="50"/>
+<rect x="1" y="0" xx="2" yy="50"/>
+<rect x="2" y="0" xx="3" yy="50"/>
+<rect x="3" y="0" xx="4" yy="50"/>
+<rect x="4" y="0" xx="5" yy="50"/>
+<rect x="5" y="0" xx="6" yy="50"/>
+<rect x="6" y="0" xx="7" yy="50"/>
+<rect x="7" y="0" xx="8" yy="50"/>
+<rect x="8" y="0" xx="9" yy="50"/>
+<rect x="9" y="0" xx="10" yy="50"/>
+<rect x="10" y="0" xx="11" yy="50"/>
+<rect x="11" y="0" xx="12" yy="50"/>
+<rect x="12" y="0" xx="13" yy="50"/>
+<rect x="13" y="0" xx="14" yy="50"/>
+<rect x="14" y="0" xx="15" yy="50"/>
+<rect x="15" y="0" xx="16" yy="50"/>
+<rect x="16" y="0" xx="17" yy="50"/>
+<rect x="17" y="0" xx="18" yy="50"/>
+<rect x="18" y="0" xx="19" yy="12"/>
+<rect x="18" y="36" xx="19" yy="50"/>
+<rect x="19" y="0" xx="20" yy="12"/>
+<rect x="19" y="36" xx="20" yy="50"/>
+<rect x="20" y="0" xx="21" yy="12"/>
+<rect x="20" y="36" xx="21" yy="50"/>
+<rect x="21" y="0" xx="22" yy="12"/>
+<rect x="21" y="36" xx="22" yy="50"/>
+<rect x="22" y="0" xx="23" yy="12"/>
+<rect x="22" y="36" xx="23" yy="50"/>
+<rect x="23" y="0" xx="24" yy="12"/>
+<rect x="23" y="36" xx="24" yy="50"/>
+<rect x="24" y="0" xx="25" yy="12"/>
+<rect x="24" y="36" xx="25" yy="50"/>
+<rect x="25" y="0" xx="26" yy="12"/>
+<rect x="25" y="36" xx="26" yy="50"/>
+<rect x="26" y="0" xx="27" yy="12"/>
+<rect x="26" y="36" xx="27" yy="50"/>
+<rect x="27" y="0" xx="28" yy="12"/>
+<rect x="27" y="36" xx="28" yy="50"/>
+<rect x="28" y="0" xx="29" yy="12"/>
+<rect x="28" y="36" xx="29" yy="50"/>
+<rect x="29" y="0" xx="30" yy="12"/>
+<rect x="29" y="36" xx="30" yy="50"/>
+<rect x="30" y="0" xx="31" yy="12"/>
+<rect x="30" y="36" xx="31" yy="50"/>
+<rect x="31" y="0" xx="32" yy="50"/>
+<rect x="32" y="0" xx="33" yy="50"/>
+<rect x="33" y="0" xx="34" yy="50"/>
+<rect x="34" y="0" xx="35" yy="50"/>
+<rect x="35" y="0" xx="36" yy="50"/>
+<rect x="36" y="0" xx="37" yy="50"/>
+<rect x="37" y="0" xx="38" yy="50"/>
+<rect x="38" y="0" xx="39" yy="50"/>
+<rect x="39" y="0" xx="40" yy="50"/>
+<rect x="40" y="0" xx="41" yy="50"/>
+<rect x="41" y="0" xx="42" yy="50"/>
+<rect x="42" y="0" xx="43" yy="50"/>
+<rect x="43" y="0" xx="44" yy="50"/>
+<rect x="44" y="0" xx="45" yy="50"/>
+<rect x="45" y="0" xx="46" yy="50"/>
+<rect x="46" y="0" xx="47" yy="50"/>
+<rect x="47" y="0" xx="48" yy="50"/>
+<rect x="48" y="0" xx="49" yy="50"/>
+<rect x="49" y="0" xx="50" yy="50"/>
+</subbounds>
+<entrance x="24" y="35" type="Passage" direction="North"/>
+<entrance x="24" y="12" type="Passage" direction="South"/>
+</floor>
+</floorplans>
+</building>

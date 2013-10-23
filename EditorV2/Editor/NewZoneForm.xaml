@@ -1,0 +1,28 @@
+﻿<Window x:Class="Editor.NewZoneForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Zone" Height="245" Width="305">
+    <Grid>
+        <Label Content="Subdivision Set" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,38,0,0" TextWrapping="Wrap" Name="ConstraintSetTextBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348"/>
+        <Label Content="Width Range" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,66,0,0" TextWrapping="Wrap" Name="WidthMinTextBox" Text="0" VerticalAlignment="Top" Width="83"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="196,67,0,0" TextWrapping="Wrap" Name="WidthMaxTextBox" Text="1" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Height Range" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,97,0,0" TextWrapping="Wrap" Name="HeightMinTextBox" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.417,0.348" Text="0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="196,97,0,0" TextWrapping="Wrap" Name="HeightMaxTextBox" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.417,0.348" Text="1"/>
+        <Button Content="Ok" Name="OkButton" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="130" Click="OkButton_Click"/>
+        <Button Content="Cancel" Name="CancelButton" HorizontalAlignment="Left" Margin="157,182,0,0" VerticalAlignment="Top" Width="125" RenderTransformOrigin="1.48,0.6" Click="CancelButton_Click"/>
+        <Label Content="Amount" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,125,0,0" TextWrapping="Wrap" x:Name="AmountMinTextBox" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.417,0.348" Text="0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="196,125,0,0" TextWrapping="Wrap" x:Name="AmountMaxTextBox" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.417,0.348" Text="1"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
+        <ComboBox x:Name="TypeComboBox" HorizontalAlignment="Left" Margin="108,153,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
+            <ComboBoxItem Content="Public"/>
+            <ComboBoxItem Content="Private"/>
+            <ComboBoxItem Content="Service"/>
+        </ComboBox>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,10,0,0" TextWrapping="Wrap" x:Name="IdTextBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348"/>
+    </Grid>
+</Window>

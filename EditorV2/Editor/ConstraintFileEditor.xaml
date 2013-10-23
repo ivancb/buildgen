@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Editor.ConstraintFileEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="Editor"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Grid Background="#FFECEAE1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="93*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
+            <Button Content="New Zone" Name="NewZoneBtn" Width="100px" Click="NewZoneBtn_Click" />
+        </StackPanel>
+        <TextBox Name="TextEditor" Grid.Row="1" Margin="5" FontFamily="Consolas" TextInput="TextEditor_TextInput" />
+    </Grid>
+</UserControl>
