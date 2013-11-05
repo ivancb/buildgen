@@ -32,4 +32,6 @@ The project can be used entirely from within the editor, where you can create ne
 
 BuildGen is published under the terms of the MIT License.
 
-The initial version was developped as a final year project by Ivan Cebola under supervision of Fausto Mourato, for the Polytechnic Institute of Setúbal in 2013.
+The initial version was developped as a final year project by Ivan Cebola under supervision of Fausto Mourato, for the [Polytechnic Institute of Setúbal][1] in 2013.
+
+[1]:  http://www.ips.pt "Polytechnic Institute of Setúbal"

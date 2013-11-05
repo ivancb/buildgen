@@ -1,0 +1,4 @@
+C:\Users\Sajuuk\Documents\GitHub\buildgen\BuildGen\Common\bin\Debug\Common.dll
+C:\Users\Sajuuk\Documents\GitHub\buildgen\BuildGen\Common\bin\Debug\Common.pdb
+C:\Users\Sajuuk\Documents\GitHub\buildgen\BuildGen\Common\obj\Debug\Common.dll
+C:\Users\Sajuuk\Documents\GitHub\buildgen\BuildGen\Common\obj\Debug\Common.pdb
