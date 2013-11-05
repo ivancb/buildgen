@@ -5,6 +5,8 @@
 *.vshost.*
 *.cache
 *.g.*
+*.suo
+*.csproj.user
 TemporaryGenerated*
 
 # Output files
