@@ -652,6 +652,11 @@ namespace Editor
                     toolsGenerateItem.IsEnabled = true;
                     toolsGenerateWithParamsItem.IsEnabled = true;
                 }
+                else
+                {
+                    toolsGenerateItem.IsEnabled = false;
+                    toolsGenerateWithParamsItem.IsEnabled = false;
+                }
             }
         }
 
