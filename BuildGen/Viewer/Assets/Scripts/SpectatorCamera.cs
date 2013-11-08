@@ -15,7 +15,7 @@ public class SpectatorCamera : MonoBehaviour
     public float MinimumYAngle = -80f;
     public float MaximumYAngle = 80f;
     public float RotationSpeed = 5.0f;
-    public float MovementSpeed = 0.4f;
+    public float MovementSpeed = 50.0f;
 
 
     void Start()
@@ -52,14 +52,16 @@ public class SpectatorCamera : MonoBehaviour
         CharacterController controller = GetComponent<CharacterController>();
 
         // Apply key movement
+        float moveSpeed = MovementSpeed * Time.deltaTime;
+
         if (Input.GetAxis("Forward") > 0f)
-            controller.Move(this.transform.TransformDirection(new Vector3(0, 0, 1)) * MovementSpeed);
+            controller.Move(this.transform.TransformDirection(new Vector3(0, 0, 1)) * moveSpeed);
         if (Input.GetAxis("Back") > 0f)
-            controller.Move(this.transform.TransformDirection(new Vector3(0, 0, -1)) * MovementSpeed);
+            controller.Move(this.transform.TransformDirection(new Vector3(0, 0, -1)) * moveSpeed);
         if (Input.GetAxis("Strafe Left") > 0f)
-            controller.Move(this.transform.TransformDirection(new Vector3(-1, 0, 0)) * MovementSpeed);
+            controller.Move(this.transform.TransformDirection(new Vector3(-1, 0, 0)) * moveSpeed);
         if (Input.GetAxis("Strafe Right") > 0f)
-            controller.Move(this.transform.TransformDirection(new Vector3(1, 0, 0)) * MovementSpeed);
+            controller.Move(this.transform.TransformDirection(new Vector3(1, 0, 0)) * moveSpeed);
 
         // Other key handling
         if (Input.GetButtonUp("Toggle Mouselook"))

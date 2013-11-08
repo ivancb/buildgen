@@ -7,53 +7,57 @@ Direct3D:
     VRAM:     1208 MB (via DXGI)
     Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 DF24=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=1
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\System.Xml.Linq.dll (this message is harmless)
-Loading C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\System.Xml.Linq.dll into Unity Child Domain
-- Completed reload, in  0.058 seconds
+Platform assembly: C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\System.Xml.Linq.dll (this message is harmless)
+Loading C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\System.Xml.Linq.dll into Unity Child Domain
+- Completed reload, in  0.118 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-Generating building file list from directory C:/Users/Sajuuk/Dropbox/PFC_Ivan_Cebola/Workshop/Projecto/Visualizador_Data/../Output/
+Generating building file list from directory C:/Users/Sajuuk/Documents/GitHub/buildgen/Sample/Visualizador_Data/../Output/
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Platform assembly: C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\System.Xml.dll (this message is harmless)
-Loading C:/Users/Sajuuk/Dropbox/PFC_Ivan_Cebola/Workshop/Projecto/Visualizador_Data/../Output/edificio.xml
+Platform assembly: C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\System.Xml.dll (this message is harmless)
+Loading C:/Users/Sajuuk/Documents/GitHub/buildgen/Sample/Visualizador_Data/../Output/apartamentoAntigo.xml
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Platform assembly: C:\Users\Sajuuk\Dropbox\PFC_Ivan_Cebola\Workshop\Projecto\Visualizador_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Sajuuk\Documents\GitHub\buildgen\Sample\Visualizador_Data\Managed\System.dll (this message is harmless)
 Successfully loaded the building mesh file. Contains 5 layers:
-	Layer 'passages' (i=0) present in 2 floors and contains 2 zones and 3174 vertices.
-	Layer 'rooms' (i=1) present in 2 floors and contains 2 zones and 3618 vertices.
-	Layer 'ceiling' (i=2) present in 3 floors and contains 1 zones and 204 vertices.
-	Layer 'exteriorwall' (i=3) present in 2 floors and contains 2 zones and 2322 vertices.
-	Layer 'interiorfloor' (i=4) present in 2 floors and contains 2 zones and 7752 vertices.
+	Layer 'passages' (i=0) present in 2 floors and contains 2 zones and 2580 vertices.
+	Layer 'rooms' (i=1) present in 2 floors and contains 2 zones and 3024 vertices.
+	Layer 'ceiling' (i=2) present in 3 floors and contains 1 zones and 270 vertices.
+	Layer 'exteriorwall' (i=3) present in 2 floors and contains 2 zones and 2010 vertices.
+	Layer 'interiorfloor' (i=4) present in 2 floors and contains 2 zones and 8070 vertices.
 
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Updated building mesh with 34140 vertices.
+Updated building mesh with 31908 vertices.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Updated building mesh with 13728 vertices.
+Updated building mesh with 15768 vertices.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Updated building mesh with 34140 vertices.
+Updated building mesh with 31908 vertices.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Updated building mesh with 20820 vertices.
+Updated building mesh with 27888 vertices.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Updated building mesh with 20412 vertices.
+Updated building mesh with 31908 vertices.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Updated building mesh with 27888 vertices.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
