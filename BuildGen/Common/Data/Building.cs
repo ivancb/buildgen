@@ -37,13 +37,7 @@ namespace BuildGen.Data
         {
             get
             {
-                foreach (var floor in Floors)
-                {
-                    if (!floor.Valid)
-                        return false;
-                }
-
-                return true;
+                return true; // TODO: Add validation
             }
         }
     }

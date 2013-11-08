@@ -1,6 +1,4 @@
 # Compiled files
-*.exe
-*.exe.config
 *.pdb
 *.vshost.*
 *.cache
@@ -11,3 +9,6 @@ TemporaryGenerated*
 
 # Output files
 *.bmp
+Thumbs.db
+BuildGen/*/bin/**
+BuildGen/*/obj/**

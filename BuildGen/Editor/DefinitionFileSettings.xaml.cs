@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Editor
 {
@@ -22,8 +14,12 @@ namespace Editor
         public float BuildingHeight = 10f;
         public float BuildingResolution = 0.2f;
 
-        public DefinitionFileSettings()
+        private DataRegistry Registry;
+
+        public DefinitionFileSettings(DataRegistry dataSource)
         {
+            Registry = dataSource;
+
             InitializeComponent();
         }
 
@@ -31,7 +27,7 @@ namespace Editor
         {
             try
             {
-                ConstraintSet = ConstraintSetTextBox.Text;
+                ConstraintSet = (string)ConstraintSetComboBox.SelectedValue;
                 Seed = int.Parse(SeedTextBox.Text, CultureInfo.InvariantCulture);
                 BuildingWidth = float.Parse(FloorWidthTextBox.Text, CultureInfo.InvariantCulture);
                 BuildingHeight = float.Parse(FloorHeightTextBox.Text, CultureInfo.InvariantCulture);
@@ -52,16 +48,41 @@ namespace Editor
 
         private void DefinitionFileSettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ConstraintSetTextBox.Text = ConstraintSet;
+            InitializeConstraintSetsComboBox();
+
+            if ((ConstraintSetComboBox.Items.Count > 0) && (ConstraintSetComboBox.SelectedIndex == -1))
+                ConstraintSetComboBox.SelectedIndex = 0;
+
             SeedTextBox.Text = Seed.ToString(CultureInfo.InvariantCulture);
             FloorWidthTextBox.Text = BuildingWidth.ToString(CultureInfo.InvariantCulture);
             FloorHeightTextBox.Text = BuildingHeight.ToString(CultureInfo.InvariantCulture);
             FloorResolutionTextBox.Text = BuildingResolution.ToString(CultureInfo.InvariantCulture);
         }
 
-        private void SeedTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void InitializeConstraintSetsComboBox()
         {
-            if (!IsNumeric(e.Text))
+            ConstraintSetComboBox.DisplayMemberPath = "key";
+            ConstraintSetComboBox.SelectedValuePath = "val";
+
+            foreach (var filepath in Registry.ConstraintFiles)
+            {
+                ConstraintSetComboBox.Items.Add(new { key = Path.GetFileNameWithoutExtension(filepath), val = filepath });
+            }
+
+            // Has to be done after populating the combobox, otherwise it gets reset
+            for (int n = 0; n < Registry.ConstraintFiles.Count; n++)
+            {
+                if (Registry.ConstraintFiles[n] == ConstraintSet)
+                {
+                    ConstraintSetComboBox.SelectedIndex = n;
+                    break;
+                }
+            }
+        }
+
+        private void NumericInputTextbox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (IsNumeric(e.Text))
                 e.Handled = true;
         }
 

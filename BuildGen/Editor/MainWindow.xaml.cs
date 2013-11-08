@@ -18,11 +18,11 @@ namespace Editor
 
         private struct TemporaryFileId
         {
-            public bool IsDefinitionFile;
             public string Filename;
+            public bool IsDefinitionFile;
         }
 
-        private Dictionary<string, TemporaryFileId> TemporaryFiles;
+        private List<TemporaryFileId> TemporaryFiles;
         public static string WorkingDirectory = "";
         public DataRegistry Registry;
 
@@ -30,7 +30,7 @@ namespace Editor
         {
             WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
             Registry = new DataRegistry();
-            TemporaryFiles = new Dictionary<string, TemporaryFileId>();
+            TemporaryFiles = new List<TemporaryFileId>();
 
             InitializeComponent();
             documentTabControl.AddHandler(DocumentTabItem.CloseTabEvent, new RoutedEventHandler(documentTabControl_CloseTab));
@@ -65,40 +65,39 @@ namespace Editor
         {
             if ((documentTabControl.Items.Count > 0) && (documentTabControl.SelectedItem != null))
             {
-                var selectedItem = (TabItem)documentTabControl.SelectedItem;
-                var selectedEntryText = System.IO.Path.GetFileNameWithoutExtension((string)selectedItem.Header);
+                var selectedItem = (DocumentTabItem)documentTabControl.SelectedItem;
+                var pathActiveFile = (string)selectedItem.Filename;
 
                 // Find out if the root parent is a constraint set or a building descriptor, otherwise do nothing
                 if(selectedItem is DocumentTabItem)
                 {
-                    string originalFilename;
-
-                    if (Registry.DefinitionFiles.TryGetValue(selectedEntryText, out originalFilename))
+                    if (Registry.DefinitionFiles.Contains(pathActiveFile))
+                        SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : pathActiveFile, true);
+                    else if (Registry.ConstraintFiles.Contains(pathActiveFile))
+                        SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : pathActiveFile, false);
+                    else
                     {
-                        SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : originalFilename, true);
-                    }
-                    else if (Registry.ConstraintFiles.TryGetValue(selectedEntryText, out originalFilename))
-                    {
-                        SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : originalFilename, false);
-                    }
-
-                    // If we haven't found the file, check the temporary files
-                    TemporaryFileId fileId;
-                    if (TemporaryFiles.TryGetValue(selectedEntryText, out fileId))
-                    {
-                        SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : fileId.Filename, fileId.IsDefinitionFile);
-
-                        CloseTab(System.IO.Path.GetFileName(fileId.Filename));
-
-                        if (targetFilename == null)
+                        // If we haven't found the file, check the temporary files
+                        foreach (var tempfile in TemporaryFiles)
                         {
-                            if (fileId.IsDefinitionFile)
-                                EditDefinitionFile(fileId.Filename);
-                            else
-                                EditConstraintFile(fileId.Filename);
-                        }
+                            if (tempfile.Filename == pathActiveFile)
+                            {
+                                SaveFile((DocumentTabItem)selectedItem, targetFilename != null ? targetFilename : tempfile.Filename, tempfile.IsDefinitionFile);
 
-                        TemporaryFiles.Remove(selectedEntryText);
+                                CloseTab(System.IO.Path.GetFileName(tempfile.Filename) + (tempfile.IsDefinitionFile ? " (DefFile)" : " (CSet)"));
+
+                                if (targetFilename == null)
+                                {
+                                    if (tempfile.IsDefinitionFile)
+                                        EditDefinitionFile(tempfile.Filename);
+                                    else
+                                        EditConstraintFile(tempfile.Filename);
+                                }
+
+                                TemporaryFiles.Remove(tempfile);
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -140,7 +139,7 @@ namespace Editor
                 int tabIndex = -1;
                 for (int n = 0; n < documentTabControl.Items.Count; n++)
                 {
-                    if ((((TabItem)documentTabControl.Items[n]).Header as string) == tabHeader)
+                    if ((string)((DocumentTabItem)documentTabControl.Items[n]).Filename == filename)
                     {
                         tabIndex = n;
                         break;
@@ -152,8 +151,8 @@ namespace Editor
                 {
                     string fileContents = ((bld != null) ? "" : System.IO.File.ReadAllText(filename));
 
-                    BuildingDescriptorEditor nEditor = new BuildingDescriptorEditor();
-                    TabItem docTab = new DocumentTabItem() { Header = tabHeader };
+                    BuildingDescriptorEditor nEditor = new BuildingDescriptorEditor(Registry);
+                    TabItem docTab = new DocumentTabItem() { Header = tabHeader + " (DefFile)", Filename = filename };
                     docTab.Content = nEditor;
 
                     nEditor.ContentsModified += new BuildingDescriptorEditor.ContentsModifiedHandler(this.editor_ContentsModified);
@@ -193,7 +192,7 @@ namespace Editor
                 int tabIndex = -1;
                 for (int n = 0; n < documentTabControl.Items.Count; n++)
                 {
-                    if ((((TabItem)documentTabControl.Items[n]).Header as string) == tabHeader)
+                    if ((string)((DocumentTabItem)documentTabControl.Items[n]).Filename == filename)
                     {
                         tabIndex = n;
                         break;
@@ -208,7 +207,7 @@ namespace Editor
                     ConstraintFileEditor nEditor = new ConstraintFileEditor();
                     nEditor.Text = fileContents;
 
-                    TabItem docTab = new DocumentTabItem() { Header = tabHeader };
+                    TabItem docTab = new DocumentTabItem() { Header = tabHeader + " (CSet)", Filename = filename };
                     docTab.Content = nEditor;
 
                     nEditor.ContentsModified += new ConstraintFileEditor.ContentsModifiedHandler(this.editor_ContentsModified);
@@ -238,9 +237,9 @@ namespace Editor
             // List the constraint set files
             TreeViewItem constraintSetsParentItem = new TreeViewItem() { Header = "Constraint Sets" };
 
-            foreach (var item in Registry.ConstraintFiles)
+            foreach (var filepath in Registry.ConstraintFiles)
             {
-                TreeViewItem constraintSetItem = new TreeViewItem() { Header = item.Key };
+                TreeViewItem constraintSetItem = new TreeViewItem() { Header = Path.GetFileNameWithoutExtension(filepath) };
                 constraintSetsParentItem.Items.Add(constraintSetItem);
             }
 
@@ -250,9 +249,9 @@ namespace Editor
             // List the building description files
             TreeViewItem buildingDefinitionParentItem = new TreeViewItem() { Header = "Building Definitions" };
 
-            foreach (var item in Registry.DefinitionFiles)
+            foreach (var filepath in Registry.DefinitionFiles)
             {
-                TreeViewItem buildingDefinitionItem = new TreeViewItem() { Header = item.Key };
+                TreeViewItem buildingDefinitionItem = new TreeViewItem() { Header = Path.GetFileNameWithoutExtension(filepath) };
                 buildingDefinitionParentItem.Items.Add(buildingDefinitionItem);
             }
 
@@ -316,12 +315,13 @@ namespace Editor
         {
             SaveActiveFile();
 
-            string selectedEntryText = System.IO.Path.GetFileNameWithoutExtension((string)((TabItem)documentTabControl.SelectedItem).Header);
-            string originalFilename;
+            string pathActiveFile = ((DocumentTabItem)documentTabControl.SelectedItem).Filename;
 
-            if (Registry.DefinitionFiles.TryGetValue(selectedEntryText, out originalFilename))
+            if (Registry.DefinitionFiles.Contains(pathActiveFile))
             {
-                string argString = "-in=\"" + originalFilename + "\" -out=\"Output\\" + selectedEntryText + "\"";
+                string noExtPath = Path.GetFileNameWithoutExtension(pathActiveFile);
+
+                string argString = "-in=\"" + pathActiveFile + "\" -out=\"Output\\" + noExtPath + "\"";
                 if(constraintSet != null)
                     argString += " -constraints=\"" + constraintSet + "\"";
                 if(seed.HasValue)
@@ -338,8 +338,15 @@ namespace Editor
                     {
                         proc.WaitForExit();
 
-                        // If the user wishes to rerun the generator, it'll force the usage of a new seed so it gets passed as null
-                        ShowOutput("Output\\" + selectedEntryText, constraintSet, null);
+                        if (proc.ExitCode == 0)
+                        {
+                            // If the user wishes to rerun the generator, it'll force the usage of a new seed so it gets passed as null
+                            ShowOutput("Output\\" + noExtPath, constraintSet, null);
+                        }
+                        else
+                        {
+                            MessageBox.Show("An unknown error occurred while executing the generator.");
+                        }
                     }
                 }
                 catch (Exception e)
@@ -370,19 +377,24 @@ namespace Editor
 
                 if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    TemporaryFiles.Add(Path.GetFileNameWithoutExtension(fileDialog.FileName), new TemporaryFileId() { IsDefinitionFile = true, Filename = fileDialog.FileName });
+                    TemporaryFiles.Add(new TemporaryFileId() { IsDefinitionFile = true, Filename = fileDialog.FileName });
 
-                    DefinitionFileSettings settingsDialog = new DefinitionFileSettings();
+                    DefinitionFileSettings settingsDialog = new DefinitionFileSettings(Registry);
 
                     bool? ret = settingsDialog.ShowDialog();
                     if (ret.HasValue && ret.Value)
                     {
+                        TemporaryFileId tempFile = new TemporaryFileId() { Filename = fileDialog.FileName, IsDefinitionFile = true };
+
+                        if (!TemporaryFiles.Contains(tempFile))
+                            TemporaryFiles.Add(tempFile);
+
                         BuildGen.Data.Building nbuilding = new BuildGen.Data.Building(settingsDialog.BuildingWidth, settingsDialog.BuildingHeight, settingsDialog.BuildingResolution);
                         nbuilding.ConstraintSet = settingsDialog.ConstraintSet;
                         nbuilding.Seed = settingsDialog.Seed;
                         nbuilding.AddFloor();
 
-                        EditDefinitionFile(Path.GetFileName(fileDialog.FileName), nbuilding);
+                        EditDefinitionFile(fileDialog.FileName, nbuilding);
                     }
                 }
             }
@@ -400,8 +412,12 @@ namespace Editor
 
                 if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    TemporaryFiles.Add(Path.GetFileNameWithoutExtension(fileDialog.FileName), new TemporaryFileId() { IsDefinitionFile = false, Filename = fileDialog.FileName });
-                    EditConstraintFile(Path.GetFileName(fileDialog.FileName), true);
+                    TemporaryFileId tempFile = new TemporaryFileId() { Filename = fileDialog.FileName, IsDefinitionFile = true };
+
+                    if(!TemporaryFiles.Contains(tempFile))
+                        TemporaryFiles.Add(tempFile);
+
+                    EditConstraintFile(fileDialog.FileName, true);
                 }
             }
         }
@@ -451,8 +467,14 @@ namespace Editor
 
         private void fileCloseItem_Click(object sender, RoutedEventArgs e)
         {
-            if(documentTabControl.SelectedItem != null)
-                documentTabControl.Items.Remove((DocumentTabItem)documentTabControl.SelectedItem);
+            if (documentTabControl.SelectedItem != null)
+            {
+                DocumentTabItem selectedTab = (DocumentTabItem)documentTabControl.SelectedItem;
+                string filename = (string)selectedTab.Filename;
+
+                TemporaryFiles.Remove(new TemporaryFileId { Filename = filename, IsDefinitionFile = selectedTab.Content is BuildingDescriptorEditor });
+                documentTabControl.Items.Remove(selectedTab);
+            }
         }
 
         private void toolsGenerateItem_Click(object sender, RoutedEventArgs e)
@@ -473,7 +495,7 @@ namespace Editor
 
                     if (mboxResult == MessageBoxResult.Yes)
                     {
-                        GeneratorParametersWindow dialog = new GeneratorParametersWindow(constraintSet, seed);
+                        GeneratorParametersWindow dialog = new GeneratorParametersWindow(constraintSet, seed, Registry);
                         bool? res = dialog.ShowDialog();
 
                         if (res.HasValue && res.Value)
@@ -502,7 +524,7 @@ namespace Editor
                 BuildingDescriptorEditor editor = (BuildingDescriptorEditor)((DocumentTabItem)documentTabControl.SelectedItem).Content;
                 BuildGen.Data.Building bld = editor.ActiveBuilding;
 
-                GeneratorParametersWindow dialog = new GeneratorParametersWindow(bld.ConstraintSet, bld.Seed);
+                GeneratorParametersWindow dialog = new GeneratorParametersWindow(bld.ConstraintSet, bld.Seed, Registry);
                 bool? res = dialog.ShowDialog();
 
                 if (res.HasValue && res.Value)
@@ -551,26 +573,37 @@ namespace Editor
             if(documentTreeView.SelectedItem != null)
             {
                 var selectedItem = (TreeViewItem)documentTreeView.SelectedItem;
-                var selectedEntryText = (string)selectedItem.Header;
+                var itemHeader = (string)selectedItem.Header;
 
                 // Find out if the root parent is a constraint set or a building descriptor, otherwise do nothing
-                if(selectedItem.Parent == documentTreeView.Items[0])
+                var constraintSetItemsParent = documentTreeView.Items[0];
+                var definitionSetItemsParent = documentTreeView.Items[1];
+
+                if (selectedItem.Parent == constraintSetItemsParent)
                 {
-                    string targetFilename;
-                    
-                    if(Registry.ConstraintFiles.TryGetValue(selectedEntryText, out targetFilename))
+                    foreach(var filepath in Registry.ConstraintFiles)
                     {
-                        EditConstraintFile(targetFilename);
+                        if (filepath.Contains(itemHeader) && (Path.GetFileNameWithoutExtension(filepath) == itemHeader))
+                        {
+                            EditConstraintFile(filepath);
+                            return;
+                        }
                     }
+
+                    MessageBox.Show("Could not edit the specified file");
                 }
-                else if(selectedItem.Parent == documentTreeView.Items[1])
+                else if (selectedItem.Parent == definitionSetItemsParent)
                 {
-                    string targetFilename;
-                    
-                    if(Registry.DefinitionFiles.TryGetValue(selectedEntryText, out targetFilename))
+                    foreach (var filepath in Registry.DefinitionFiles)
                     {
-                        EditDefinitionFile(targetFilename);
+                        if (filepath.Contains(itemHeader) && (Path.GetFileNameWithoutExtension(filepath) == itemHeader))
+                        {
+                            EditDefinitionFile(filepath);
+                            return;
+                        }
                     }
+
+                    MessageBox.Show("Could not edit the specified file");
                 }
             }
         }
@@ -581,22 +614,17 @@ namespace Editor
 
             if(item.DocumentModified)
             {
-                MessageBoxResult res = MessageBox.Show(this, "Save changes made to " + (string)item.Header + "?", "Editor", MessageBoxButton.YesNoCancel);
+                MessageBoxResult res = MessageBox.Show(this, "Save changes made to " + (string)item.Filename + "?", "Editor", MessageBoxButton.YesNoCancel);
 
                 if (res == MessageBoxResult.Yes)
                 {
                     // Save the file first
-                    string headerFilename = System.IO.Path.GetFileNameWithoutExtension((string)item.Header);
-                    string targetFilename;
+                    string filepath = (string)item.Filename;
 
-                    if (Registry.ConstraintFiles.TryGetValue(headerFilename, out targetFilename))
-                    {
-                        SaveFile(item, targetFilename, false);
-                    }
-                    else if (Registry.DefinitionFiles.TryGetValue(headerFilename, out targetFilename))
-                    {
-                        SaveFile(item, targetFilename, true);
-                    }
+                    if (Registry.ConstraintFiles.Contains(filepath))
+                        SaveFile(item, filepath, false);
+                    else if (Registry.DefinitionFiles.Contains(filepath))
+                        SaveFile(item, filepath, true);
                 }
                 else if(res == MessageBoxResult.Cancel)
                 {
@@ -604,7 +632,9 @@ namespace Editor
                 }
             }
 
-            // Close the current tab
+            // Close the current tab and remove it from temporary files if it's there
+            string filename = (string)item.Filename;
+            TemporaryFiles.Remove(new TemporaryFileId { Filename = filename, IsDefinitionFile = item.Content is BuildingDescriptorEditor });
             documentTabControl.Items.Remove(item);
             UpdateEnabledDocumentControls();
         }

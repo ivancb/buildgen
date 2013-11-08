@@ -34,14 +34,16 @@ namespace Editor
         private BuildGen.Data.Point activeShapeEnd;
         private Point gridCellSize;
         private int activeFloorIndex;
+        private DataRegistry Registry;
 
         public delegate void ContentsModifiedHandler(object sender);
         public event ContentsModifiedHandler ContentsModified;
 
-        public BuildingDescriptorEditor()
+        public BuildingDescriptorEditor(DataRegistry registry)
         {
             InitializeComponent();
 
+            Registry = registry;
             activeDrawMode = DrawModes.None;
             activeBuilding = null;
             activeShape = null;
@@ -716,7 +718,7 @@ namespace Editor
 
         private void BuildingSettings_Click(object sender, RoutedEventArgs e)
         {
-            DefinitionFileSettings settingsDialog = new DefinitionFileSettings();
+            DefinitionFileSettings settingsDialog = new DefinitionFileSettings(Registry);
             settingsDialog.ConstraintSet = activeBuilding.ConstraintSet;
             settingsDialog.Seed = activeBuilding.Seed;
             settingsDialog.BuildingWidth = activeBuilding.Width;
@@ -726,9 +728,8 @@ namespace Editor
             bool? ret = settingsDialog.ShowDialog();
             if (ret.HasValue && ret.Value)
             {
-                BuildGen.Data.Building nbuilding = new BuildGen.Data.Building(settingsDialog.BuildingWidth, settingsDialog.BuildingHeight, settingsDialog.BuildingResolution);
-                nbuilding.ConstraintSet = settingsDialog.ConstraintSet;
-                nbuilding.Seed = settingsDialog.Seed;
+                ActiveBuilding.ConstraintSet = settingsDialog.ConstraintSet;
+                ActiveBuilding.Seed = settingsDialog.Seed;
 
                 ContentsModified(this);
             }

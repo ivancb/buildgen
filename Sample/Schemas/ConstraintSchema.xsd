@@ -1,0 +1,94 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="ConstraintSchema" elementFormDefault="qualified" targetNamespace="ConstraintSchema">
+  
+  <xsd:element name="constraints" type="baseElementType"/>
+
+  <xsd:complexType name="baseElementType">
+    <xsd:sequence>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element name="set" type="constraintSetType"/>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="constraintSetType">
+    <xsd:sequence>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element name="floorconstraint" type="floorConstraintType" />
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="floorConstraintType">
+    <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+      <xsd:element name="zone" type="zoneType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+   <xsd:complexType name="roomConstraintType">
+    <xsd:all>
+      <xsd:element name="enableFloors" type="rangeType" minOccurs="0"/> <!-- specifies the floors in which this constraint should be active, default to all floors -->
+      <xsd:element name="amount" type="rangeType" maxOccurs="1"/>
+      <xsd:element name="area" type="drangeType" maxOccurs="1"/>
+      <xsd:element name="width" type="drangeType" minOccurs="0"/>
+      <xsd:element name="height" type="drangeType" minOccurs="0"/>
+      <xsd:element name="wallHeight" type="drangeType" minOccurs="0"/>
+      <xsd:element name="allowAdjacent" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="disallowAdjacent" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="requireAdjacent" type="xsd:string" minOccurs="0"/>
+    </xsd:all>
+    <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <!-- Defines a zone composed of type and constraint application attributes and ranges for its area and amount -->
+  <xsd:complexType name="zoneType">
+    <xsd:all>
+      <xsd:element name="width" type="drangeType" minOccurs="1"/>
+      <xsd:element name="height" type="drangeType" minOccurs="1"/>
+      <xsd:element name="amount" type="rangeType" minOccurs="1"/>
+    </xsd:all>
+    <xsd:attribute name="type" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Public"/>
+          <xsd:enumeration value="Private"/>
+          <xsd:enumeration value="Service"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="subdivset" type="xsd:string" use="optional"/>
+    <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="areaConditionalSetType">
+      <xsd:all>
+        <xsd:element name="area" type="drangeType"/>
+      </xsd:all>
+    <xsd:attribute name="set" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="drangeType">
+    <xsd:choice>
+      <xsd:element name="value" type="xsd:decimal"/>
+      <xsd:element name="range" type="drangeTypeImpl"/>
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:complexType name="drangeTypeImpl">
+    <xsd:attribute name="min" type="xsd:decimal"/>
+    <xsd:attribute name="max" type="xsd:decimal"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="rangeType">
+    <xsd:choice>
+      <xsd:element name="value" type="xsd:integer"/>
+      <xsd:element name="range" type="rangeTypeImpl"/>
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:complexType name="rangeTypeImpl">
+    <xsd:attribute name="min" type="xsd:integer"/>
+    <xsd:attribute name="max" type="xsd:integer"/>
+  </xsd:complexType>
+
+</xsd:schema>

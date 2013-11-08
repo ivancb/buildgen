@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<constraints xmlns="ConstraintSchema">
+  <!-- Apartment -->
+  <set name="main">
+    <floorconstraint>
+      <zone id="apartmentBlock" type="Private" subdivset="apartment_split">
+        <width><value>9.0</value></width>
+        <height><value>9.0</value></height>
+        <amount><value>2</value></amount>
+      </zone>
+      <zone id="smallRoom" type="Private">
+        <width><value>3.0</value></width>
+        <height><value>3.0</value></height>
+        <amount><value>2</value></amount>
+      </zone>
+    </floorconstraint>
+  </set>
+  <set name="apartment_split">
+    <floorconstraint>
+      <zone id="livingroom" type="Public">
+        <width><value>2.0</value></width>
+        <height><value>2.0</value></height>
+        <amount><value>1</value></amount>
+      </zone>
+      <zone id="wc" type="Service">
+        <width><value>0.5</value></width>
+        <height><value>0.5</value></height>
+        <amount><value>1</value></amount>
+      </zone>
+      <zone id="bedroom" type="Private">
+        <width><value>1.5</value></width>
+        <height><value>1.5</value></height>
+        <amount><value>1</value></amount>
+      </zone>
+    </floorconstraint>
+  </set>
+</constraints>

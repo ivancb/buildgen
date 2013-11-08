@@ -4,16 +4,16 @@
         Title="Definition File Settings" Height="200" Width="300" Loaded="DefinitionFileSettingsWindow_Loaded">
     <Grid>
         <Label Content="Constraint Set" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,13,0,0" TextWrapping="Wrap" Name="ConstraintSetTextBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348"/>
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="108,13,0,0" Name="ConstraintSetComboBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348" />
         <Label Content="Seed" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,44,0,0" TextWrapping="Wrap" Name="SeedTextBox" Text="0" VerticalAlignment="Top" Width="174" PreviewTextInput="SeedTextBox_PreviewTextInput"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,44,0,0" TextWrapping="Wrap" Name="SeedTextBox" Text="0" VerticalAlignment="Top" Width="174" PreviewTextInput="NumericInputTextbox_PreviewTextInput"/>
         <Label Content="Floor Size" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,75,0,0" TextWrapping="Wrap" Name="FloorWidthTextBox" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.417,0.348"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="204,75,0,0" TextWrapping="Wrap" x:Name="FloorHeightTextBox" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.417,0.348"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,75,0,0" TextWrapping="Wrap" Name="FloorWidthTextBox" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.417,0.348" PreviewTextInput="NumericInputTextbox_PreviewTextInput"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="204,75,0,0" TextWrapping="Wrap" x:Name="FloorHeightTextBox" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.417,0.348" PreviewTextInput="NumericInputTextbox_PreviewTextInput"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="183,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
         <Button Content="Ok" Name="OkButton" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="130" Click="OkButton_Click"/>
         <Button Content="Cancel" Name="CancelButton" HorizontalAlignment="Left" Margin="157,134,0,0" VerticalAlignment="Top" Width="125" RenderTransformOrigin="1.48,0.6" Click="CancelButton_Click"/>
         <Label Content="Floor Resolution" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.538"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,103,0,0" TextWrapping="Wrap" x:Name="FloorResolutionTextBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="108,103,0,0" TextWrapping="Wrap" x:Name="FloorResolutionTextBox" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.417,0.348" PreviewTextInput="NumericInputTextbox_PreviewTextInput"/>
     </Grid>
 </Window>

@@ -8,16 +8,16 @@ namespace Editor
 {
     public class DataRegistry
     {
-        public Dictionary<string, string> ConstraintFiles;
-        public Dictionary<string, string> DefinitionFiles;
+        public List<string> ConstraintFiles;
+        public List<string> DefinitionFiles;
 
         private string ConstraintFolder;
         private string DefinitionFileFolder;
 
         public DataRegistry()
         {
-            ConstraintFiles = new Dictionary<string, string>();
-            DefinitionFiles = new Dictionary<string, string>();
+            ConstraintFiles = new List<string>();
+            DefinitionFiles = new List<string>();
 
             ConstraintFolder = null;
             DefinitionFileFolder = null;
@@ -25,8 +25,8 @@ namespace Editor
 
         public bool LoadData(string workingDir, string constraintDir = null, string definitionFileDir = null)
         {
-            string targetConstraintDir = (constraintDir == null) ? (workingDir + @"\Constraints\") : constraintDir;
-            string targetDefinitionFileDir = (definitionFileDir == null) ? (workingDir + @"\Input\") : definitionFileDir;
+            string targetConstraintDir = (constraintDir == null) ? (workingDir + @"Constraints") : constraintDir;
+            string targetDefinitionFileDir = (definitionFileDir == null) ? (workingDir + @"Input") : definitionFileDir;
 
             try
             {
@@ -62,9 +62,7 @@ namespace Editor
             ConstraintFiles.Clear();
 
             foreach (var file in files)
-            {
-                ConstraintFiles.Add(Path.GetFileNameWithoutExtension(file), file);
-            }
+                ConstraintFiles.Add(file);
 
             return true;
         }
@@ -78,9 +76,7 @@ namespace Editor
             DefinitionFiles.Clear();
 
             foreach (var file in files)
-            {
-                DefinitionFiles.Add(Path.GetFileNameWithoutExtension(file), file);
-            }
+                DefinitionFiles.Add(file);
 
             return true;
         }

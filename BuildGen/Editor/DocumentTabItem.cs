@@ -18,6 +18,8 @@ namespace Editor
     {
         private bool documentWasModified = false;
 
+        public string Filename;
+
         static DocumentTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DocumentTabItem), new FrameworkPropertyMetadata(typeof(DocumentTabItem)));
